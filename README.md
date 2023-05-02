@@ -10,7 +10,7 @@ This repository contains the proposed solution to Exam #1 in the subject of Obje
 
 ## Files
 
-- `kol1_2021.pdf`: This file contains the exam tasks in PDF format.
+- `kol1_2021.pdf`: This file contains the exam tasks in PDF format. You can access it via this link: https://github.com/llutsefer/Exam-1-ObjectOrientedProgramming-2021/files/11378013/kol1_2021.pdf
 
 ## Disclaimer
 
