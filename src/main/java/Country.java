@@ -4,9 +4,7 @@ import java.io.FileReader;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public abstract class Country {
     private final String name;
@@ -106,7 +104,6 @@ public abstract class Country {
         return result;
     }
 
-
     private static CountryColumns getCountryColumns(String firstLine, String countryToFind) throws CountryNotFoundException{
         String[] columnNames = firstLine.split(";");
         int firstColumnIndex = -1;
@@ -174,6 +171,31 @@ public abstract class Country {
         }
         deathScanner.close();
         return result;
+    }
+
+    public static ArrayList<Country> sortByDeaths(ArrayList<Country> countryList, LocalDate startDate, LocalDate endDate){
+        int[] listForSorting = new int[countryList.size()];
+        int loopVariable = -1;
+        for (Country x: countryList
+             ) {
+                loopVariable++;
+                listForSorting[loopVariable] = 0;
+                for (LocalDate i = startDate; !endDate.plusDays(1).equals(i); i = i.plusDays(1)){
+                    listForSorting[loopVariable] += x.getDeaths(i);
+            }
+        }
+        int swapVariable;
+        for(int i = 0;i<countryList.size();i++){
+            for(int y = i+1;y < countryList.size();y++){
+                if(listForSorting[i]<listForSorting[y]){
+                    Collections.swap(countryList, i, y);
+                    swapVariable = listForSorting[i];
+                    listForSorting[i] = listForSorting[y];
+                    listForSorting[y] = swapVariable;
+                }
+            }
+        }
+        return countryList;
     }
 
     private static class CountryColumns{
