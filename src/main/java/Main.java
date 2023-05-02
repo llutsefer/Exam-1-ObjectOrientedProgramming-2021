@@ -19,6 +19,6 @@ public class Main {
             throw new RuntimeException(e);
         }
         System.out.println(test.getConfirmedCases(date));
-        System.out.println(test.getDeath(date));
+        System.out.println(test.getDeaths(date));
     }
 }

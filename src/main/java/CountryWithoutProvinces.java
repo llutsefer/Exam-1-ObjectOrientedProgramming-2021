@@ -16,10 +16,13 @@ public class CountryWithoutProvinces extends Country{
         dailyStatistic.put(date, data);
     }
 
+    @Override
     public int getConfirmedCases(LocalDate date){
         return dailyStatistic.get(date).get(0);
     }
-    public int getDeath(LocalDate date){
+
+    @Override
+    public int getDeaths(LocalDate date){
         return dailyStatistic.get(date).get(1);
     }
 

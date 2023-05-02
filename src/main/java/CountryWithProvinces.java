@@ -7,6 +7,8 @@ public class CountryWithProvinces extends Country{
         super(name);
         this.regionsArray.addAll(regionsArray);
     }
+
+    @Override
     public int getConfirmedCases(LocalDate date){
         int result = 0;
         for (CountryWithoutProvinces x:regionsArray
@@ -15,7 +17,9 @@ public class CountryWithProvinces extends Country{
         }
       return result;
     }
-    public int getDeath(LocalDate date){
+
+    @Override
+    public int getDeaths(LocalDate date){
         int result = 0;
         for (CountryWithoutProvinces x:regionsArray
         ) {

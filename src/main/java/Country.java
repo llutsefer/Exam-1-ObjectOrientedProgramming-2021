@@ -130,6 +130,9 @@ public abstract class Country {
         }
     }
 
+    public abstract int getConfirmedCases(LocalDate date);
+    public abstract int getDeaths(LocalDate date);
+
     public static int getConfirmedCasesForAllCountries(LocalDate date) throws FileNotFoundException {
         Scanner confirmedCasesScanner = new Scanner(new FileReader(confirmedCase.toFile()));
         int result = 0;
