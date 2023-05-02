@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.nio.file.Path;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -5,6 +6,7 @@ import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.io.FileWriter;
 
 public abstract class Country {
     private final String name;
@@ -196,6 +198,25 @@ public abstract class Country {
             }
         }
         return countryList;
+    }
+
+    public static void saveToDataFile(Path pathToResultFile) throws IOException {
+        Scanner deathScanner = new Scanner(new FileReader(deaths.toFile()));
+        deathScanner.nextLine();
+        deathScanner.nextLine();
+        FileWriter resultWriter = new FileWriter(pathToResultFile.toFile());
+        while (deathScanner.hasNextLine()) {
+            String lineOfConfirmedCases = deathScanner.nextLine();
+            String[] dividedLineOfDeath = Arrays.stream(lineOfConfirmedCases.split(";")).toArray(String[]::new);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yy");
+            DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("d.MM.yy");
+            LocalDate dateFromFile = LocalDate.parse(dividedLineOfDeath[0], formatter);
+            int confirmedCasesOfThisDay = Country.getConfirmedCasesForAllCountries(dateFromFile);
+            int deathsOfThisDay = Country.getDeathForAllCountries(dateFromFile);
+            resultWriter.write(dateFromFile.format(formatter2) + ';' + confirmedCasesOfThisDay + ';' + confirmedCasesOfThisDay + '\n');
+        }
+        deathScanner.close();
+        resultWriter.close();
     }
 
     private static class CountryColumns{
